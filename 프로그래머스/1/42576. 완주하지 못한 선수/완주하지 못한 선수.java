@@ -29,3 +29,9 @@ class Solution {
         return "";
     }
 }
+
+/*
+- getOrDefault(a,b): 키(a)가 있으면 value 반환, 없으면 b 반환 -> Null 예외 방지
+- keySet(): 키 순회할때 사용
+
+*/
