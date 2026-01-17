@@ -62,6 +62,6 @@ class Solution {
 - .toCharArray(): String → char[] 전용
 - Integer.parseInt: String → int
 -  Math.sqrt(num): √num
-
+    - sqrt: SQuare RooT
 
 */
