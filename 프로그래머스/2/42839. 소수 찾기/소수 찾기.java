@@ -58,6 +58,10 @@ class Solution {
 2. 소수인지 판단: 
     - 2부터 √n 중에 약수 있으면, n은 소수가 아님
 
+[문법]
+- .toCharArray(): String → char[] 전용
+- Integer.parseInt: String → int
+-  Math.sqrt(num): √num
 
 
 */
