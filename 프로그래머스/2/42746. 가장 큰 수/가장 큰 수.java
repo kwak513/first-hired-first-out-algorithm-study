@@ -2,53 +2,37 @@ import java.util.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        // [ 1. int[] -> String[] ]
-        String[] numbersToString = new String[numbers.length];
         
-        for(int i = 0; i < numbers.length; i++){
-            numbersToString[i] = String.valueOf(numbers[i]);
+        boolean allZero = true;
+        for(int num: numbers){
+            if(num != 0){
+                allZero = false;
+            }
         }
         
-        // [2. numbersToString 정렬]
-        Arrays.sort(numbersToString, Collections.reverseOrder((a, b) -> (a + b).compareTo(b + a)));
-        
-        // [3. 숫자가 전부 0이면, 0 반환]
-        if(numbersToString[0].equals("0")){
+        if(allZero){
             return "0";
         }
         
-        // [4. StringBuilder 이용]
+        
+        List<String> numbersToString = new ArrayList<>();
+        
+        for(int i = 0; i < numbers.length; i++){
+            String currentNumToString = ((Integer) numbers[i]).toString();
+            
+            numbersToString.add(currentNumToString);
+        }
+        
+        Collections.sort(numbersToString, (a, b) -> (b + a).compareTo(a + b));
+        
         StringBuilder answer = new StringBuilder();
         
-        for(int j = 0; j < numbersToString.length; j++){
-            // answer = answer + numbersToString[j];
-            answer.append(numbersToString[j]);
+        for(String str: numbersToString){
+            answer.append(str);
+            
         }
-               
+        
+        
         return answer.toString();
-        
-        
-        
     }
 }
-
-
-/*
-문법
-1.
-Arrays.sort(numbersToString, Collections.reverseOrder((a, b) -> (a + b).compareTo(b + a)));
-
-- a.compareTo(b) 
-    - a < b: -1
-    - a == b: 0
-    - a > b: 1
-- Arrays.sort(arr, 정렬 기준)
-    - 정렬 기준이 -1, 0 : 그대로
-    - 정렬 기준이 1: 순서 바꾸기
-
-2. 
-- StringBuilder 생성
-- append
-- .toString()
-
-*/
