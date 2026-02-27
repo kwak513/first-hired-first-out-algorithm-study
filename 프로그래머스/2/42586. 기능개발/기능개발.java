@@ -3,45 +3,49 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
         
-        // 작업 시간 저장할 큐
-        Queue<Integer> timeQueue = new ArrayDeque<>();
+        List<Integer> list = new ArrayList<>();
         
-        // 작업 시간을 큐에 저장
         for(int i = 0; i < progresses.length; i++){
-            int time = (100 - progresses[i]) % speeds[i] != 0 ? (100 - progresses[i]) / speeds[i] + 1 : (100 - progresses[i]) / speeds[i];
-            timeQueue.add(time);
+            int currentProgress = progresses[i];
+            int currentSpeed = speeds[i];
+            
+            int requiredDay = 
+                (100 - currentProgress) % currentSpeed != 0 ?
+                ((100 - currentProgress) / currentSpeed) + 1 :
+                ((100 - currentProgress) / currentSpeed);
+            
+            list.add(requiredDay);
             
         }
+        
+        // ex) list: [7일, 3일, 9일]
         
         List<Integer> answerList = new ArrayList<>();
         
-        // poll 하면서 대소 비교
-        while(!timeQueue.isEmpty()){
+        int maxDay = list.get(0);
+        int count = 1;
+        
+        for(int j = 1; j < list.size(); j++){
             
-            // return 할 count
-            int count = 0;
-            // poll한 값
-            int polledInt = timeQueue.poll();
-            count++;
+            int currentDay = list.get(j);
             
-            
-            // poll >= peek -> poll후, count++
-            // 함께 나갈 것들 '전부' 꺼내기
-            while(!timeQueue.isEmpty() && polledInt >= timeQueue.peek()){
-                timeQueue.poll();
+            if(currentDay <= maxDay){
                 count++;
             }
-            
-            answerList.add(count);
+            else{
+                answerList.add(count);
+                maxDay = currentDay;
+                count = 1;
+            }
+        
         }
         
-        // answerList -> int[]
+        answerList.add(count);
         
         int[] answer = new int[answerList.size()];
         
         for(int p = 0; p < answerList.size(); p++){
             answer[p] = answerList.get(p);
-        
         }
         
         return answer;
