@@ -2,48 +2,44 @@ import java.util.*;
 
 class Solution {
     
-    // 상하좌우
     int[] dx = {-1, 1, 0, 0};
     int[] dy = {0, 0, -1, 1};
+       
     
     public int solution(int[][] maps) {
-        int w =  maps[0].length;    // 가로
-        int h = maps.length;    // 세로
         
-        boolean[][] visited = new boolean[h][w];
-        Queue<int[]> queue = new ArrayDeque<>();
+        int n = maps.length;
+        int m = maps[0].length;
+        
+        Queue<int[]> queue = new LinkedList<>();
         
         queue.add(new int[]{0, 0, 1});
-        visited[0][0] = true;
+        maps[0][0] = 0;
         
         while(!queue.isEmpty()){
-            int[] polledItem = queue.poll();
             
-            int x = polledItem[0];
-            int y = polledItem[1];
-            int dist = polledItem[2];
+            int[] current = queue.poll();
+            int x = current[0];
+            int y = current[1];
+            int dist = current[2];
             
-            if(x == w - 1 && y == h - 1){
+            if(x == n - 1 && y == m - 1){
                 return dist;
             }
             
+            
             for(int i = 0; i < 4; i++){
-                int newX = x + dx[i];
-                int newY = y + dy[i];
+                int nx = x + dx[i];
+                int ny = y + dy[i];
                 
-                if(newX < 0 || newY < 0 || newX >= w || newY >= h){
-                    continue;
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && maps[nx][ny] == 1){
+                     maps[nx][ny] = 0;
+                    queue.add(new int[]{nx, ny, dist + 1});
                 }
-                if(maps[newY][newX] == 0 || visited[newY][newX]){
-                    continue;
-                }
-                
-                visited[newY][newX] = true;
-                queue.add(new int[]{newX, newY, dist + 1});
-                
             }
+            
+            
         }
-        
         return -1;
     }
 }
